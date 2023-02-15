@@ -6,6 +6,8 @@ import * as URL from "../constants/urls/urlFrontEnd";
 import AdminHomeView from "../views/AdminHomeView";
 import HomeView from "../views/HomeView";
 import LoginView from "../views/LoginView";
+import LoginPage from "../views/LoginView/LoginPage";
+import SignInPage from "../views/SignInView/SignInPage";
 import { PrivateRoute } from "./PrivateRoute";
 
 /**
@@ -33,7 +35,9 @@ const Routes = () => {
           </PrivateRoute>
         }
       />
-      <Route path={URL.URL_LOGIN} element={<LoginView />} />
+      {/* <Route path={URL.URL_LOGIN} element={<LoginView />} /> */}
+      <Route path={URL.URL_LOGIN} element={<LoginPage />} />
+      <Route path={URL.URL_REGISTER} element={<SignInPage />} />
     </RoutesContainer>
   );
 };

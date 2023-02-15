@@ -1,4 +1,5 @@
 @import url(./base/base.css);
+@import url(./utils/gradient.css);
 
 @import url(./components/component.css);
 @import url(./components/btn.css);

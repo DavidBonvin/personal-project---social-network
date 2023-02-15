@@ -1,7 +1,11 @@
-.input{
+/* .input{
     @apply appearance-none relative block w-full px-3 py-2 
     border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md 
     focus:outline-none focus:ring-primary focus:border-primary focus:z-20 sm:text-sm
+} */
+
+.input {
+    @apply border-none appearance-none w-4/5 placeholder-gray-500 rounded-md
 }
 
 .input-error {
@@ -22,4 +26,8 @@
 
 .radio-error{
     @apply border-red-500 border-2
+}
+
+.error {
+    @apply text-red-500 font-semibold w-full;
 }
