@@ -1,12 +1,12 @@
-import { LockClosedIcon } from "@heroicons/react/solid";
 import { Field, Form, Formik } from "formik";
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 
+import { LockClosedIcon } from "@heroicons/react/solid";
 import { URL_HOME } from "../../constants/urls/urlFrontEnd";
+import { authenticate } from "../../api/backend/account";
 import { signIn } from "../../redux-store/authenticationSlice";
-import { authenticate } from "./../../api/backend/account";
+import { useDispatch } from "react-redux";
 
 /**
  * Component Login

@@ -1,6 +1,6 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
-import logo from '../../../assets/img/icons/logo_tree-up.svg'
+import React from 'react'
+import logo from '../../assets/img/icons/logo_tree-up.svg'
 
 function Welcome() {
   return (

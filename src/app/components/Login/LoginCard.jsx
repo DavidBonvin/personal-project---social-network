@@ -1,11 +1,12 @@
+import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from 'react-router-dom'
-import Button from '../../../components/theme/Button'
-import Input from '../../../components/theme/Input'
-import { useFormik } from 'formik'
-import { register } from '../../../utils/fakeApi'
-import validationSchema from '../../../utils/loginSchema'
+
+import Button from "../../components/base/Button";
+import Input from "../../components/base/Input";
 import ReCAPTCHA from "react-google-recaptcha";
+import axios from "axios";
+import { useFormik } from "formik";
+import validationSchema from "../../utils/loginSchema";
 
 /* Les composants sont dans le dossier assets/components/theme
 Le style des composants se trouve dans le dossier assets/styles/components
@@ -15,32 +16,32 @@ Les variables des couleurs se trouvent dans le fichier tailwind.config.js
 */
 
 function LoginCard() {
-
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
+  
   const [captchaValidate, setcaptchaValidate] = useState(null)
   const [formValidate, setFormValidate] = useState(null)
   const [isLogin, setIsLogin] = useState(false)
+  const [errorLog, setErrorLog] = useState(false)
 
   useEffect(() => {
-    isLogin && navigate('/register')
+    isLogin && navigate('/')
   }, [isLogin])
 
-  const captchagoogle = useRef (null);
+  const captchagoogle = useRef(null);
 
   const onChange = () => {
-    if(captchagoogle.current.getValue()){
-      setcaptchaValidate(true)
-      console.log("Vous n'êtes pas un robot")
+    if (captchagoogle.current.getValue()) {
+      setcaptchaValidate(true);
+      console.log("Vous n'êtes pas un robot");
     } else {
-      setcaptchaValidate(false)
-      console.log("Vous êtes un robot ?")
+      setcaptchaValidate(false);
+      console.log("Vous êtes un robot ?");
     }
-  }
+  };
 
   const initialValues = {
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   };
 
   const { 
@@ -53,26 +54,36 @@ function LoginCard() {
     onSubmit
   });
 
+  const login = (values) => {
+    const user = values
+    axios
+      .post("http://localhost:8000/tree-up-api/login", user)
+      .then(response => {
+        console.log('requête login ok')
+        setIsLogin(true)
+      })
+      .catch(error => {
+        console.log('erreur requête login')
+        setErrorLog(true)
+      }) 
+    console.log('requête terminée')
+  }
+  
   async function onSubmit(formValues) {
     console.log(formValues);
     if(captchagoogle.current.getValue()) {
       setFormValidate(true)
       setcaptchaValidate(true)
-      try {
-        await register(formValues);
-        resetForm();
-        console.log('Connexion réussie')
-        setIsLogin(true)
-      } catch ({ errors }) {
-        for (let key in errors) {
-          setFieldError(key, errors[key]);
-        }
-      }
+      login(formValues);
+      resetForm();
+      console.log('Connexion réussie')
+      // setIsLogin(true)
     } else {
       setFormValidate(false)
       setcaptchaValidate(false)
     }
   }
+
 
   return (
     <div className='bg-gray-1 w-full max-w-2xl md:w-4/5 lg:w-4/5 2xl:max-w-3xl rounded-lg flex flex-col  items-center'>
@@ -112,6 +123,9 @@ function LoginCard() {
           type="submit"
           disabled={isSubmitting || !isValid}
         />
+        { errorLog && 
+          <small className="error text-center mt-4">Paire login / mot de passe incorrecte</small>
+        }
       </form>
       <div className='mb-4 w-full flex justify-end'>
         <Link className='mr-4 mt-4' to='/register'>Créer un compte</Link>
