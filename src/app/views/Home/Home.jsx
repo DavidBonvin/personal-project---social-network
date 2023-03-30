@@ -1,5 +1,6 @@
 import ListProject from "../../components/Project/ListProject";
 import React from "react";
+import LikeButton from "../../components/Project/LikeButton";
 
 const Home = () => {
   return (

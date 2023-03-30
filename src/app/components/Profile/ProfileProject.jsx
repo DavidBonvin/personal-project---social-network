@@ -1,158 +1,43 @@
 import "../../views/Profile/Scrollbar.css";
 
-import CardProject from "../Project/CardProject"
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import CardProject from "../Project/CardProject";
 import { PlusIcon } from "@heroicons/react/solid";
-import React from "react";
-import { URL_EDITPROFILE } from "../../constants/urls/urlFrontEnd";
+import { URL_BACK_PROJECT } from "../../constants/urls/urlBackEnd";
+import { URL_CREATEPROJECT } from "../../constants/urls/urlFrontEnd";
+import apiGateway from "../../api/backend/apiGateway";
 
 const ProfileProject = () => {
+  const { uuid } = useParams();
 
-  const FakeData = [
-    {
-      uuid: "e73bab9a-7d74-4e18-a647-040c16742467",
-      name: "Stronghold",
-      type: "Comedy|Romance",
-      description:
-        "Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.\n\nMaecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.",
-      collaborator: "Pre-emptive leading edge Graphic Interface",
-      technologies: [
-        {
-          name: "NodeJs",
-          image: "https://dummyimage.com/100x100.png/5fa2dd/ffffff",
-          uuid: "akzldklqsjdqsjlkqjf3",
-        },
-        {
-          name: "NodeJs",
-          image: "https://dummyimage.com/100x100.png/5fa2dd/ffffff",
-          uuid: "akzldklqsjdqsjlkqjf2",
-        },
-        {
-          name: "NodeJs",
-          image: "https://dummyimage.com/100x100.png/5fa2dd/ffffff",
-          uuid: "akzldklqsjdqsjlkqjf1",
-        },
-      ],
-      image: "http://dummyimage.com/140x100.png/5fa2dd/ffffff",
-    },
-    {
-      uuid: "9f32c63f-ee50-4079-ac28-6a86b9c76df0",
-      name: "Veribet",
-      type: "Drama",
-      description:
-        "Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
-      collaborator: "Ameliorated directional strategy",
-      technologies: [
-        {
-          name: "NodeJs",
-          image: "https://dummyimage.com/100x100.png/5fa2dd/ffffff",
-          uuid: "akzldklqsjdqsjlkqjf3",
-        },
-        {
-          name: "NodeJs",
-          image: "https://dummyimage.com/100x100.png/5fa2dd/ffffff",
-          uuid: "akzldklqsjdqsjlkqjf2",
-        },
-        {
-          name: "NodeJs",
-          image: "https://dummyimage.com/100x100.png/5fa2dd/ffffff",
-          uuid: "akzldklqsjdqsjlkqjf1",
-        },
-      ],
-      image: "http://dummyimage.com/147x100.png/dddddd/000000",
-    },
-    {
-      uuid: "2419294d-cfdd-4657-97de-369ca12395dc",
-      name: "Redhold",
-      type: "Documentary",
-      description:
-        "Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.",
-      collaborator: "Decentralized systemic interface",
-      technologies: [
-        {
-          name: "NodeJs",
-          image: "https://dummyimage.com/100x100.png/5fa2dd/ffffff",
-          uuid: "akzldklqsjdqsjlkqjf3",
-        },
-        {
-          name: "NodeJs",
-          image: "https://dummyimage.com/100x100.png/5fa2dd/ffffff",
-          uuid: "akzldklqsjdqsjlkqjf2",
-        },
-        {
-          name: "NodeJs",
-          image: "https://dummyimage.com/100x100.png/5fa2dd/ffffff",
-          uuid: "akzldklqsjdqsjlkqjf1",
-        },
-      ],
-      image: "http://dummyimage.com/180x100.png/cc0000/ffffff",
-    },
-    {
-      uuid: "69fcf5ff-5e92-4ad5-966c-c06ae9527d01",
-      name: "Zoolab",
-      type: "Crime|Mystery|Thriller",
-      description:
-        "Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.\n\nDuis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.\n\nMauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.",
-      collaborator: "Synchronised even-keeled help-desk",
-      technologies: [
-        {
-          name: "NodeJs",
-          image: "https://dummyimage.com/100x100.png/5fa2dd/ffffff",
-          uuid: "akzldklqsjdqsjlkqjf3",
-        },
-        {
-          name: "NodeJs",
-          image: "https://dummyimage.com/100x100.png/5fa2dd/ffffff",
-          uuid: "akzldklqsjdqsjlkqjf2",
-        },
-        {
-          name: "NodeJs",
-          image: "https://dummyimage.com/100x100.png/5fa2dd/ffffff",
-          uuid: "akzldklqsjdqsjlkqjf1",
-        },
-      ],
-      image: "http://dummyimage.com/201x100.png/ff4444/ffffff",
-    },
-    {
-      uuid: "42ed9285-edd3-4763-905a-e5d82844d09d",
-      name: "Stim",
-      type: "Drama",
-      description:
-        "Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.",
-      collaborator: "Cross-platform holistic analyzer",
-      technologies: [
-        {
-          name: "NodeJs",
-          image: "https://dummyimage.com/100x100.png/5fa2dd/ffffff",
-          uuid: "akzldklqsjdqsjlkqjf3",
-        },
-        {
-          name: "NodeJs",
-          image: "https://dummyimage.com/100x100.png/5fa2dd/ffffff",
-          uuid: "akzldklqsjdqsjlkqjf2",
-        },
-        {
-          name: "NodeJs",
-          image: "https://dummyimage.com/100x100.png/5fa2dd/ffffff",
-          uuid: "akzldklqsjdqsjlkqjf1",
-        },
-      ],
-      image: "http://dummyimage.com/187x100.png/dddddd/000000",
-    },
-  ];
+  const [projects, setProjects] = useState([]);
+	const [error, setError] = useState();
 
-
+  useEffect(() => {
+		apiGateway.get(URL_BACK_PROJECT + "/user/" + uuid)
+		.then(({data}) => setProjects(data))
+		.catch(({error}) => setError(error.message));
+	}, [uuid]);
+  
   return (
     <div className="flex ml-7">
       <div className="">
-        <Link to={URL_EDITPROFILE}>
+        <Link to={URL_CREATEPROJECT}>
           <PlusIcon className="border-2 w-24 rounded-md h-full mr-5 shadow-xl bg-white" />
         </Link>
       </div>
-      <div className="flex gap-3 overflow-x-scroll w-auto border-red-500">
-      {FakeData.map((project) => (
-        <CardProject key={project.uuid} project={project} />
+      <div className="flex gap-3 overflow-x-scroll w-auto border-red-500 scrollbar">
+      {projects
+        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        .map((project) => (
+        <CardProject key={project.uuid} {...project} />
       ))}
+      {error && (
+				<p className="error p-5 m-1 border-2 border-red-700 bg-white">
+				{error}
+				</p>
+			)}
       </div>
     </div>
   );

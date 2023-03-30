@@ -3,7 +3,7 @@ import SignInCard from "../../components/SignIn/SignInCard";
 
 function SignIn() {
   return (
-    <div className="bg-white flex justify-center items-center h-full">
+    <div className="flex justify-center items-center h-full">
       <SignInCard />
     </div>
   );

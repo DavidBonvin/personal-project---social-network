@@ -2,34 +2,44 @@
 
 @layer base {
 
-    html{
-        @apply h-full
-    }
-    body{
+    html {
         @apply h-full
     }
 
-    .main{
-        height: calc(100vh - 114px);
+    body {
+        @apply h-full
     }
-    
+
+    .body,
+    .main {
+        height: calc(100vh - 96px);
+    }
+
     /* TYPOGRAPHIE */
-    h1{
+    h1 {
         @apply text-6xl
     }
-    h2{
+
+    h2 {
         @apply text-5xl
     }
-    h3{
+
+    h3 {
         @apply text-4xl
     }
-    h4{
+
+    h4 {
         @apply text-3xl
     }
-    h5{
+
+    h5 {
         @apply text-2xl
     }
-    h6{
+
+    h6 {
         @apply text-xl
+    }
+    .gradient {
+        @apply bg-gradient-to-r from-gradient-first via-gradient-second to-gradient-third
     }
 }

@@ -1,6 +1,6 @@
-import jwt_decode from 'jwt-decode';
+import jwt_decode from "jwt-decode";
 
-const TOKEN_NAME = 'token';
+const TOKEN_NAME = "token";
 
 /**
  * To save the JWT token using for the back end requests
@@ -10,7 +10,7 @@ const TOKEN_NAME = 'token';
  * @author Peter Mollet
  */
 export function setToken(token) {
-    localStorage.setItem(TOKEN_NAME, token);
+  localStorage.setItem(TOKEN_NAME, token);
 }
 
 /**
@@ -20,7 +20,7 @@ export function setToken(token) {
  * @author Peter Mollet
  */
 export function getToken() {
-    return localStorage.getItem(TOKEN_NAME);
+  return localStorage.getItem(TOKEN_NAME);
 }
 
 /**
@@ -29,7 +29,7 @@ export function getToken() {
  * @author Peter Mollet
  */
 export function removeToken() {
-    localStorage.removeItem(TOKEN_NAME);
+  localStorage.removeItem(TOKEN_NAME);
 }
 
 /**
@@ -39,7 +39,9 @@ export function removeToken() {
  * @author Peter Mollet
  */
 export function getPayloadToken(token) {
-    return jwt_decode(token);
+  const decodedToken = jwt_decode(token);
+  // console.log(decodedToken)
+  return decodedToken;
 }
 
 /**
@@ -50,14 +52,27 @@ export function getPayloadToken(token) {
  * @author Peter Mollet
  */
 export function isTokenValid(token) {
-    try {
-        const payload = getPayloadToken(token);
-        const roles = payload.auth.split(',');
-        const expirationDate = payload.exp;
-        const login = payload.sub;
-        const dateNow = new Date();
-        return token && roles.length > 0 && login && expirationDate < dateNow.getTime();
-    } catch {
-        return false;
-    }
+  try {
+    const payload = getPayloadToken(token);
+    // console.log('payload', payload)
+    const expDate = payload.iat;
+    const login = payload.sub;
+    const dateNow = new Date();
+    return payload && login && expDate < dateNow.getTime();
+  } catch {
+    return false;
+  }
+}
+
+/**
+ *
+ * To put the token on the request headers to secure the calls to the API
+ * @return {object} headers of the request
+ */
+export function configHeaders() {
+  const token = getToken();
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
+  return { headers };
 }

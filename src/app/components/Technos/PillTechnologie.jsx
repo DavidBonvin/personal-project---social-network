@@ -1,16 +1,12 @@
 import React from "react";
 
-const PillTechnologie = ({ technologie }) => {
-  const { name, image } = technologie;
-
-  return (
-    <div
-      className="flex rounded-xl border-gradient-v border-2 gap-2 p-1 mx-1"
-    >
-      <img src={image} alt={name} width={24} />
-      <span>{name}</span>
-    </div>
-  );
+const PillTechnologie = ({ name, image }) => {
+	return (
+		<div className="flex min-w-fit justify-center px-2 py-1 gap-1 rounded-3xl border-gradient-v">
+			<img src={image} alt={name} width={24} className="ml-2"  />
+			<span className="ml-2">{name}</span>
+		</div>
+	);
 };
 
 export default PillTechnologie;
